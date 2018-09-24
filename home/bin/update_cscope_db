@@ -1,0 +1,8 @@
+#! /bin/bash
+
+TMPFILE=_tmp_cfiles_$$
+find $(pwd) -type f -a \( -name '*.s' -o -name '*.S' -o -name '*.c' -o -name '*.C' -o -name '*.h' -o -name '*.H' -o -name '*.cpp' -o -name '*.CPP' \) > $TMPFILE
+
+cscope -b -i $TMPFILE
+
+rm -f $TMPFILE

@@ -1,0 +1,120 @@
+filetype off
+
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
+" let Vundle Manage vundle, required
+"Bundle 'gmarik/vundle'
+"" My Bundles here
+"" Oringinal reos on github
+"" Bundle 'tpope/vim-rails.git'
+"" vim-scripts repos
+"" Bundle 'L9'
+"Bundle 'comments.vim'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/nerdtree'
+"Bundle 'majutsushi/tagbar'
+"Bundle 'OmniCppComplete'
+""Bundle 'jcf/vim-latex'
+"" Bundle 'omnicppcomplete'
+"" Bundle 'AutoComplPop'
+
+
+" auto start fcitx
+" language messages en_US.utf-8
+if has("win32")
+	set encoding=gbk
+	set fileencoding=utf-8
+	set shellslash
+else
+	set encoding=utf-8
+	set fileencoding=utf-8
+endif
+source $VIMRUNTIME/delmenu.vim
+"set guifont=DejaVu_Sans_Mono:h10:cANSI
+set guifont=DejaVu\ Sans\ Mono\ 11
+
+set background=dark
+set autoindent
+set nu
+set hlsearch
+set formatoptions+=mM
+set tw=80
+
+set tags=tags
+set tags+=./tags
+"colorscheme torte
+
+" display the current row and column
+set ruler 
+" define shortcuts
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
+nnoremap <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q<CR>
+
+
+
+" let vim's completing menu working compatible with othre IDE
+set completeopt+=longest
+
+
+function! SetC()
+	set ts=8
+"	set ts=4
+	set shiftwidth=8
+	set previewheight=3
+"	set foldcolumn=3
+	set nu
+"	NERDTree
+"	set foldmethod=syntax
+	set cindent
+endfunction
+
+function! SetCpp()
+	set ts=4
+	set shiftwidth=4
+	set cindent
+endfunction
+
+function! SetJava()
+	set autoindent
+	set ts=4
+	set shiftwidth=4
+	set foldcolumn=0
+	set foldclose=all
+	set foldmethod=manual
+endfunction
+
+function! SetWebFile()
+	set ts=4
+	set shiftwidth=4
+	set foldcolumn=0
+	set foldclose=all
+	set foldmethod=manual
+endfunction
+
+function! SetLatex()
+	set formatoptions+=mM
+	set textwidth=75
+	set sw=2
+	set iskeyword+=:
+	set grepprg=grep\ -nH\ $*
+	let g:tex_flavor='latex'
+	colorscheme xkh
+endfunction
+
+
+autocmd!
+autocmd! BufNewFile,BufRead *.c call SetC()
+autocmd! BufNewFile,BufRead *.cpp call SetCpp()
+autocmd! BufNewFile,BufRead *.java  call SetJava()
+autocmd! BufNewFile,BufRead *.htm,*.html,*.js,*.jsp  call SetWebFile()
+autocmd! BufNewFile,BufRead *.tex call SetLatex()
+autocmd! bufwritepost .vimrc source ~/.vimrc
+
+" autocmd vimenter * NERDTree
+
+filetype plugin on
+filetype indent on
+syntax on
+colorscheme xkh
